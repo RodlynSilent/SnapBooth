@@ -109,17 +109,4 @@ class VideoApp:
 if __name__ == "__main__":
     app = VideoApp(tk.Tk(), "SnapBooth")
 
-while True:
-    # Capture frame-by-frame
-    ret, frame = self.cap.read()
-
-    # Display the resulting frame
-    cv2.imshow('SnapBooth', frame)
-
-    # If 'q' is pressed on the keyboard, break the loop and close the window
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-# When everything is done, call the on_closing method
-self.on_closing()
 
