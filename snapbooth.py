@@ -10,7 +10,7 @@ class VideoApp:
         self.window.title(window_title)
 
         # Video capture
-        self.cap = cv2.VideoCapture(0)  # Change to index 0 for default camera
+        self.cap = cv2.VideoCapture(1)  # Change to index 0 for default camera
         if not self.cap.isOpened():
             raise ValueError("Unable to open video source")
 
@@ -74,14 +74,6 @@ class VideoApp:
         return frame
 
     def apply_filter(self, frame):
-        # if self.current_filter == 'Sepia':
-        #     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        #     frame = np.array(frame, dtype=np.float64)
-        #     frame = cv2.transform(frame, np.array([[0.393, 0.769, 0.189],
-        #                                           [0.349, 0.686, 0.168],
-        #                                           [0.272, 0.534, 0.131]]))
-        #     frame = np.clip(frame, 0, 255)
-        #     frame = np.array(frame, dtype=np.uint8)
         if self.current_filter == 'Sepia':
             frame = self.apply_sepia(frame, intensity=0.5)  
         elif self.current_filter == 'Noir':
@@ -104,25 +96,7 @@ class VideoApp:
         # Store the last frame
         self.last_frame = frame
         return frame
-
-    # def update(self):
-    #     # Get a frame from the video source
-    #     ret, frame = self.cap.read()
-
-    #     if ret:
-    #         # Apply selected filter
-    #         frame = self.apply_filter(frame)
-
-    #         # Apply mirroring if necessary
-    #         if self.mirror:
-    #             frame = cv2.flip(frame, 1)  # Flip the frame horizontally
-
-    #         # Convert image for tkinter
-    #         self.photo = ImageTk.PhotoImage(image=Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)))
-    #         self.canvas.create_image(0, 0, image=self.photo, anchor=tk.NW)
-
-    #     self.window.after(self.delay, self.update)
-
+    
     def update(self):
         # Only update if running flag is True and not closing
         if self.running and not self.closing:
@@ -143,7 +117,6 @@ class VideoApp:
 
             self.window.after(self.delay, self.update)  # Call update again after the delay
 
-
     def toggle_mirror(self):
         # Toggle the mirroring flag
         self.mirror = not self.mirror
@@ -154,13 +127,6 @@ class VideoApp:
             file_path = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG files", "*.png")])
             if file_path:
                 Image.fromarray(cv2.cvtColor(self.last_frame, cv2.COLOR_BGR2RGB)).save(file_path)
-
-    # def on_closing(self):
-    #     # When everything is done, release the capture
-    #     if self.cap.is_opened():
-    #         self.cap.release()
-    #     cv2.destroyAllWindows()
-    #     self.window.destroy()
 
     def on_closing(self):
         # Stop the update loop and set the closing flag
