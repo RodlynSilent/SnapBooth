@@ -114,7 +114,7 @@ while True:
     ret, frame = self.cap.read()
 
     # Display the resulting frame
-    cv2.imshow('Video Filter App', frame)
+    cv2.imshow('SnapBooth', frame)
 
     # If 'q' is pressed on the keyboard, break the loop and close the window
     if cv2.waitKey(1) & 0xFF == ord('q'):
