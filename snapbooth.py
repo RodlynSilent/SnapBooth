@@ -96,7 +96,25 @@ class VideoApp:
         # Store the last frame
         self.last_frame = frame
         return frame
-    
+
+    # def update(self):
+    #     # Get a frame from the video source
+    #     ret, frame = self.cap.read()
+
+    #     if ret:
+    #         # Apply selected filter
+    #         frame = self.apply_filter(frame)
+
+    #         # Apply mirroring if necessary
+    #         if self.mirror:
+    #             frame = cv2.flip(frame, 1)  # Flip the frame horizontally
+
+    #         # Convert image for tkinter
+    #         self.photo = ImageTk.PhotoImage(image=Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)))
+    #         self.canvas.create_image(0, 0, image=self.photo, anchor=tk.NW)
+
+    #     self.window.after(self.delay, self.update)
+
     def update(self):
         # Only update if running flag is True and not closing
         if self.running and not self.closing:
