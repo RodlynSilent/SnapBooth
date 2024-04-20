@@ -125,10 +125,16 @@ class VideoApp:
 
     def capture_frame(self):
         if self.last_frame is not None:
+            # Apply mirroring to the frame if necessary
+            if self.mirror:
+                frame_to_save = cv2.flip(self.last_frame, 1)  # Flip the frame horizontally
+            else:
+                frame_to_save = self.last_frame
+            
             # Save the processed frame
             file_path = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG files", "*.png")])
             if file_path:
-                Image.fromarray(cv2.cvtColor(self.last_frame, cv2.COLOR_BGR2RGB)).save(file_path)
+                Image.fromarray(cv2.cvtColor(frame_to_save, cv2.COLOR_BGR2RGB)).save(file_path)
 
     def on_closing(self):
         # Stop the update loop and set the closing flag
