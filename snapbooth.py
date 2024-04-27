@@ -41,6 +41,8 @@ class VideoApp:
         self.window.protocol("WM_DELETE_WINDOW", self.on_closing)
 
         self.window.mainloop()
+        
+    # Sagolili and Mahilum (GUI)
 
     def create_buttons(self):
         filters = ['Normal', 'Sepia', 'Noir', 'Comic', 'Vintage', 'BMW']
@@ -57,6 +59,8 @@ class VideoApp:
 
     def set_filter(self, filter_name):
         self.current_filter = filter_name
+        
+    # Sagolili's filter algo of Sepia
 
     def apply_sepia(self, frame, intensity=0.5):
         # Verify alpha channel in the frame
@@ -73,6 +77,7 @@ class VideoApp:
         cv2.addWeighted(overlay, intensity, frame, 1.0, 0, frame)
         return frame
 
+    # Everyone contributed to this part (Split testing of filter algorithms )
     def apply_filter(self, frame):
         if self.current_filter == 'Sepia':
             frame = self.apply_sepia(frame, intensity=0.5)  
@@ -116,6 +121,8 @@ class VideoApp:
                 self.canvas.create_image(0, 0, image=self.photo, anchor=tk.NW)
 
             self.window.after(self.delay, self.update)  # Call update again after the delay
+            
+    # Sagolili's part (Performance optimization)
 
     def toggle_mirror(self):
         # Toggle the mirroring flag
